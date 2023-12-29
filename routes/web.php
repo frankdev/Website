@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Articles\ShowController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +24,9 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__.'/auth.php';
+
+Route::prefix('articles')->group(function () {
+    Route::get('{slug}', ShowController::class)->name('articles.show');
+});
+
+require __DIR__ . '/auth.php';
