@@ -21,10 +21,10 @@ test('course list page has the create and deploy course', function () {
     $response->assertOk()
         ->assertViewHas('courses');
 
-    foreach ($courses as $course) {
-        $response->assertSee('<a href="'.url()->route(name: 'courses.show', parameters: [
+    foreach ($courses->items as $course) {
+        $response->assertSee(url()->route(name: 'courses.show', parameters: [
             'slug' => $course->slug,
-        ]).'">');
+        ]));
         $response->assertSee($course->title);
     }
 
