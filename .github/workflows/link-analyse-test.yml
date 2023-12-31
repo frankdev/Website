@@ -94,7 +94,7 @@ jobs:
         env:
           COMPOSER_AUTH: ${{ secrets.GITHUB_TOKEN }}
         run: composer install --optimize-autoloader --no-progress --no-interaction --ignore-platform-req=php
-        working-directory: service
+        working-directory: src
 
       - name: Run PHPstan
         run: ./vendor/bin/phpstan analyse
