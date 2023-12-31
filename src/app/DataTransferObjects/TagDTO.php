@@ -7,7 +7,7 @@ namespace App\DataTransferObjects;
 use Illuminate\Support\Str;
 use Spatie\LaravelData\Data;
 
-class TagDTO extends Data
+final class TagDTO extends Data
 {
     public function __construct(
         public string $title,

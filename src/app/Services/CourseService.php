@@ -17,13 +17,13 @@ class CourseService
 {
     /**
      * Returns the list of courses that are published under
-     * content/courses folder
+     * the content /courses folder
      *
-     * @return DataCollection<CourseDTO>
+     * @return CoursesDTO
      */
-    public function getCourses(): DataCollection
+    public function getCourses(): CoursesDTO
     {
-        $courses = CoursesDTO::collection([]);
+        $courses = CourseDTO::collection([]);
         $directories = glob(base_path('content/courses/*'));
 
         CodeRendererExtension::$allowBladeForNextDocument = true;
@@ -47,11 +47,13 @@ class CourseService
             }
         }
 
-        return $courses;
+        return CoursesDTO::from([
+            'items' => $courses
+        ]);
     }
 
     /**
-     * @return DataCollection<SectionDTO>
+     * @return DataCollection<(int|string), SectionDTO>
      */
     public function getSections(string $directory): DataCollection
     {
@@ -100,7 +102,7 @@ class CourseService
 
         $courses = $this->getCourses();
 
-        return $courses->where('slug', $slug)->first();
+        return $courses->items->where('slug', $slug)->first();
 
     }
 }
