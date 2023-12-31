@@ -81,6 +81,8 @@ jobs:
 
 ```
 
+#### 3. Check GitHub Actions Workflows Runs
+
 #### 3. Commit your changes and Push the feature branch:
 Run the following command in your terminal:
 ```bash
