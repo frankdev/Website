@@ -109,6 +109,9 @@ jobs:
           cp .env.ci .env.testing
         working-directory: src
 
+      - name: Install NPM Packages
+        run: npm run build
+
       - name: Run tests
         run: ./vendor/bin/pest
         working-directory: src
