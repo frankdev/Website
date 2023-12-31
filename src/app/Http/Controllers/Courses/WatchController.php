@@ -20,10 +20,9 @@ final class WatchController extends Controller
 
         [$course, $lesson] = $this->lessonService->getLesson($course, $lesson);
 
-        if (!$course || !$lesson) {
+        if (! $course || ! $lesson) {
             throw new NotFoundHttpException();
         }
-
 
         return view('courses.watch', [
             'course' => $course,

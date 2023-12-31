@@ -18,8 +18,6 @@ class CourseService
     /**
      * Returns the list of courses that are published under
      * the content /courses folder
-     *
-     * @return CoursesDTO
      */
     public function getCourses(): CoursesDTO
     {
@@ -48,7 +46,7 @@ class CourseService
         }
 
         return CoursesDTO::from([
-            'items' => $courses
+            'items' => $courses,
         ]);
     }
 

@@ -19,7 +19,7 @@ final class TagDTO extends Data
     public static function fromTitle(string $title, ?string $description = null): TagDTO
     {
 
-        return new static(
+        return new self(
             title: $title,
             slug: Str::slug($title),
             description: $description
