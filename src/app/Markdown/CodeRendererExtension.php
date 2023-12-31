@@ -3,7 +3,6 @@
 namespace App\Markdown;
 
 use Illuminate\Support\Facades\Blade;
-use JetBrains\PhpStorm\NoReturn;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentRenderedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -43,9 +42,6 @@ class CodeRendererExtension implements ExtensionInterface, NodeRendererInterface
         return null;
     }
 
-    /**
-     * @return void
-     */
     public function onDocumentRenderedEvent(): void
     {
         static::$allowBladeForNextDocument = false;
