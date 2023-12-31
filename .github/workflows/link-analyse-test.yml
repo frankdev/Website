@@ -24,7 +24,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: 8.2
           tools: laravel/pint, overtrue/phplint
 
       - name: Outupt PHP version
@@ -32,10 +32,10 @@ jobs:
 
       - name: Check PHP syntax
         run: phplint --exclude=*.log .
-        working-directory: service
+        working-directory: src
 
       - name: Run Laravel Pint
         run: pint --test
-        working-directory: service
+        working-directory: src
 
 
