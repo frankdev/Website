@@ -1,7 +1,7 @@
 # .github/workflows/link-analyse-test.yml
 name: Lint, Analyse and Test
 on:
-  push:
+  pull_request:
     paths:
       - ".github/**"
       - "src/**"
