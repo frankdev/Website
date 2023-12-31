@@ -12,17 +12,16 @@ use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Block\HtmlBlock;
 use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
-use League\CommonMark\Extension\CommonMark\Renderer\Block\HtmlBlockRenderer;
 use League\CommonMark\Extension\ExtensionInterface;
 use League\CommonMark\Output\RenderedContent;
 use League\CommonMark\Renderer\HtmlRenderer;
 
 class BladeRendererExtension implements ExtensionInterface
 {
-
     public array $rendered = [];
 
     public Environment $environment;
+
     public function register(EnvironmentBuilderInterface $environment): void
     {
         $environment->addEventListener(
@@ -40,7 +39,7 @@ class BladeRendererExtension implements ExtensionInterface
     {
 
         foreach ($event->getDocument()->iterator() as $node) {
-            if (!$this->isCodeNode($node)) {
+            if (! $this->isCodeNode($node)) {
                 continue;
             }
 
@@ -52,7 +51,7 @@ class BladeRendererExtension implements ExtensionInterface
             $node->replaceWith($replacement);
 
             $this->rendered[$id] = (new HtmlRenderer($this->environment))->renderNodes([
-                $node
+                $node,
             ]);
 
         }
@@ -61,7 +60,6 @@ class BladeRendererExtension implements ExtensionInterface
 
     public function onDocumentRendered(DocumentRenderedEvent $event): void
     {
-
 
         //dd($event->getOutput()->getContent());
 
@@ -83,7 +81,6 @@ class BladeRendererExtension implements ExtensionInterface
 
         //dd($search, $replace);
 
-
         $content = Str::replace($search, $replace, $content);
 
         $event->replaceOutput(
@@ -92,19 +89,12 @@ class BladeRendererExtension implements ExtensionInterface
             )
         );
 
-
     }
 
-    /**
-     * @param $node
-     * @return bool
-     */
     protected function isCodeNode($node): bool
     {
         return $node instanceof FencedCode
             || $node instanceof IndentedCode
             || $node instanceof Code;
     }
-
-
 }

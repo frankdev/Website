@@ -11,7 +11,7 @@ test('that getCourses returns a list of courses', function () {
         );
 });
 
-test ('that we can get a course by slug', function () {
+test('that we can get a course by slug', function () {
 
     /** @var \App\Services\CourseService $courseService */
     $courseService = app()->make(\App\Services\CourseService::class);
@@ -30,6 +30,4 @@ test ('that we can get a course by slug', function () {
             expected: 'Create and Deploy a Laravel Application from Scratch'
         );
 
-
 });
-

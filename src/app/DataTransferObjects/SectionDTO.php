@@ -8,11 +8,10 @@ use Spatie\LaravelData\DataCollection;
 
 class SectionDTO extends Data
 {
-
     public function __construct(
         public string $title,
         #[DataCollectionOf(LessonDTO::class)]
         public ?DataCollection $lessons
-    ) {}
-
+    ) {
+    }
 }
