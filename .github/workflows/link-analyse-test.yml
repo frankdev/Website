@@ -84,6 +84,7 @@ jobs:
 
       - name: Outupt PHP version
         run: php --version
+        working-directory: src
 
       - name: Check PHP syntax
         run: phplint --exclude=*.log .
