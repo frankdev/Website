@@ -1,0 +1,13 @@
+name: Build and Publish Docker Image
+on:
+  push:
+    paths:
+      - ".github/**"
+      - "src/**"
+    branches:
+      - main
+
+jobs:
+  Build:
+
+

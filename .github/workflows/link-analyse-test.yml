@@ -92,7 +92,7 @@ jobs:
 
       - name: Install composer
         env:
-          COMPOSER_AUTH: ${{ secrets.GITHUB_TOKEN }}
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         run: composer install --optimize-autoloader --no-progress --no-interaction --ignore-platform-req=php
         working-directory: src
 
