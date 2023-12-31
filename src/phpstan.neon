@@ -12,7 +12,8 @@ parameters:
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'
 #
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
+    excludePaths:
+        - ./*/*/FileToBeExcluded.php
+        - app/Markdown/*.php
 #
 #    checkMissingIterableValueType: false

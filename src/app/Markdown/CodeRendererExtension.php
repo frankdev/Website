@@ -8,6 +8,7 @@ use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentRenderedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\ExtensionInterface;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
@@ -26,10 +27,9 @@ class CodeRendererExtension implements ExtensionInterface, NodeRendererInterface
     /**
      * @return string|void|null
      */
-    #[NoReturn]
-    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
+    public function render(Node|IndentedCode|FencedCode|Code $node, ChildNodeRendererInterface $childRenderer)
     {
-        /** @var $node IndentedCode|FencedCode */
+        /** @var $node IndentedCode|FencedCode|Code */
         $info = $node->getInfoWords();
 
         if (! static::$allowBladeForNextDocument) {
@@ -43,7 +43,10 @@ class CodeRendererExtension implements ExtensionInterface, NodeRendererInterface
         return null;
     }
 
-    public function onDocumentRenderedEvent()
+    /**
+     * @return void
+     */
+    public function onDocumentRenderedEvent(): void
     {
         static::$allowBladeForNextDocument = false;
     }

@@ -20,7 +20,7 @@ class BladeRendererExtension implements ExtensionInterface
 {
     public array $rendered = [];
 
-    public Environment $environment;
+    public Environment|EnvironmentBuilderInterface $environment;
 
     public function register(EnvironmentBuilderInterface $environment): void
     {
@@ -78,8 +78,6 @@ class BladeRendererExtension implements ExtensionInterface
             $replace[] = $rendered;
 
         }
-
-        //dd($search, $replace);
 
         $content = Str::replace($search, $replace, $content);
 
