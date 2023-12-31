@@ -50,7 +50,7 @@ return [
         'lineNumbers' => true,
 
         // Control the `style` attribute applied to line numbers.
-        'lineNumbersStyle' => 'margin-right: 15px; font-size: 0.7rem; opacity: 0.5',
+        'lineNumbersStyle' => 'margin-right: 15px; font-size: 0.8rem; opacity: 1',
 
         // Turn on +/- diff indicators.
         // 'diffIndicators' => true,
