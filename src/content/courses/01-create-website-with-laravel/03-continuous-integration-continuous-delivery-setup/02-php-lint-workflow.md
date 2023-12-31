@@ -81,8 +81,6 @@ jobs:
 
 ```
 
-#### 3. Check GitHub Actions Workflows Runs
-
 #### 3. Commit your changes and Push the feature branch:
 Run the following command in your terminal:
 ```bash
@@ -92,3 +90,65 @@ git push
 
 ```
 
+#### 4. Check GitHub Actions Workflows Runs
+Open your browser and navigate to ``https://github.com/<username-organization>/<project-name>/actions``,
+you should be able to check that your new workflow as run.
+
+
+<div class="w-full rounded-xl bg-gray-900 overflow-hidden">
+<img src="/images/workflow-overview.png" class="object-cover not-prose w-full" alt="GitHub Actions Overview" />
+</div>
+
+
+If you click on "Implement Hello Mundo! Action" you will navigate to the workflow run details page and check
+the job and actions status and details.
+
+<div class="w-full rounded-xl bg-gray-900 overflow-hidden">
+<img src="/images/implement-hello-mundo-action-run.png" class="object-cover not-prose" alt="GitHub Actions Overview" />
+</div>
+
+#### 5. Checkout and Setup PHP actions
+Now that we successfully implemented our first action, we can move on and add more functionality 
+to our pipeline.
+We will need to checkout our code from the repository branch, and we will need to set up PHP on or
+running environment, that in our case is the ubuntu-latest.
+
+
+```yaml
+# .github/workflows/link-analyse-test.yml
+name: Lint, Analyse and Test
+on:
+  push:
+
+jobs:
+  Say-Hello:
+    name: Say Hello Mundo!
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello Mundo!"
+  Lint:
+    name: PHP Lint
+    run-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+        
+      - uses: actions/checkout@v3
+        name: Checkout branch
+        
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: 8.2
+            tools: laravel/pint, overtrue/phplint
+      - name: Outupt PHP version 
+        run: php --version
+
+      - name: Check PHP syntax
+        run: phplint --exclude=*.log .
+        working-directory: service
+
+      - name: Run Laravel Pint
+        run: pint --test
+        working-directory: service
+
+```

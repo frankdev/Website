@@ -22,7 +22,7 @@
 
 
         <div class="w-full flex flex-col lg:flex-row  dark:bg-gray-800">
-            <div class="flex-1 py-4 px-4 md:px-8 dark:bg-gray-900 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-800">
+            <div class="flex-1 py-4 px-4 md:px-8 dark:bg-gray-900 dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-800/80">
                 <article class="prose prose-ray dark:prose-invert xl:prose-lg max-w-7xl">
                     {!! $lesson->body !!}
                 </article>
