@@ -40,7 +40,7 @@ return [
     // block, Torchlight will look for code snippets in the
     // following directories.
     'snippet_directories' => [
-        resource_path()
+        resource_path(),
     ],
 
     // Global options to control blocks-level settings.
@@ -50,7 +50,7 @@ return [
         'lineNumbers' => true,
 
         // Control the `style` attribute applied to line numbers.
-        'lineNumbersStyle' => 'margin-right: 15px; font-size: 0.7rem; opacity: 0.5',
+        'lineNumbersStyle' => 'margin-right: 15px; font-size: 0.8rem; opacity: 1',
 
         // Turn on +/- diff indicators.
         // 'diffIndicators' => true,
@@ -62,5 +62,5 @@ return [
         // When lines are collapsed, this is the text that will
         // be shown to indicate that they can be expanded.
         // 'summaryCollapsedIndicator' => '...',
-    ]
+    ],
 ];

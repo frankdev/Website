@@ -8,10 +8,9 @@ use Spatie\LaravelData\DataCollection;
 
 class CoursesDTO extends Data
 {
-
     public function __construct(
         #[DataCollectionOf(CourseDTO::class)]
         public DataCollection $items
-    ) {}
-
+    ) {
+    }
 }

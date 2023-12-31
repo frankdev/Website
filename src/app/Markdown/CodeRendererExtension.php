@@ -15,7 +15,6 @@ use League\CommonMark\Renderer\NodeRendererInterface;
 
 class CodeRendererExtension implements ExtensionInterface, NodeRendererInterface
 {
-
     public static bool $allowBladeForNextDocument = false;
 
     public function register(EnvironmentBuilderInterface $environment): void
@@ -25,21 +24,20 @@ class CodeRendererExtension implements ExtensionInterface, NodeRendererInterface
     }
 
     /**
-     * @param Node $node
-     * @param ChildNodeRendererInterface $childRenderer
      * @return string|void|null
      */
-    #[NoReturn] public function render(Node $node, ChildNodeRendererInterface $childRenderer)
+    #[NoReturn]
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
     {
-        /** @var $node IndentedCode|FencedCode  */
+        /** @var $node IndentedCode|FencedCode */
         $info = $node->getInfoWords();
 
-        if(!static::$allowBladeForNextDocument) {
+        if (! static::$allowBladeForNextDocument) {
             return;
         }
 
         if (in_array('+parse', $info)) {
-           return Blade::render($node->getLiteral());
+            return Blade::render($node->getLiteral());
         }
 
         return null;
@@ -49,6 +47,4 @@ class CodeRendererExtension implements ExtensionInterface, NodeRendererInterface
     {
         static::$allowBladeForNextDocument = false;
     }
-
-
 }

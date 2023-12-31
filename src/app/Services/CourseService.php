@@ -15,7 +15,6 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 class CourseService
 {
-
     /**
      * Returns the list of courses that are published under
      * content/courses folder
@@ -30,7 +29,7 @@ class CourseService
         CodeRendererExtension::$allowBladeForNextDocument = true;
 
         foreach ($directories as $courseDirectory) {
-            $courseIndex = $courseDirectory . '/index.md';
+            $courseIndex = $courseDirectory.'/index.md';
             if (File::exists($courseIndex)) {
 
                 $course = YamlFrontMatter::parse(
@@ -41,31 +40,30 @@ class CourseService
                     $course->matter(), [
                         'body' => Markdown::convert($course->body()),
                         'directory' => $courseDirectory,
-                        'sections' => $this->getSections($courseDirectory)
+                        'sections' => $this->getSections($courseDirectory),
                     ]
                 ));
 
             }
         }
+
         return $courses;
     }
 
     /**
-     * @param string $directory
      * @return DataCollection<SectionDTO>
      */
     public function getSections(string $directory): DataCollection
     {
         $sections = SectionDTO::collection([]);
-        $sectionsDirectories = glob($directory . '/*', GLOB_ONLYDIR);
-
+        $sectionsDirectories = glob($directory.'/*', GLOB_ONLYDIR);
 
         foreach ($sectionsDirectories as $sectionDirectory) {
             $sectionFolder = explode('-', last(explode(DIRECTORY_SEPARATOR, $sectionDirectory)));
             unset($sectionFolder[0]);
             $sections[] = $this->addSectionLessons(
                 section: SectionDTO::from([
-                    'title' => Str::title(implode(' ', $sectionFolder))
+                    'title' => Str::title(implode(' ', $sectionFolder)),
                 ]),
                 directory: $sectionDirectory
             );
@@ -75,15 +73,10 @@ class CourseService
 
     }
 
-    /**
-     * @param SectionDTO $section
-     * @param string $directory
-     * @return SectionDTO
-     */
     public function addSectionLessons(SectionDTO $section, string $directory): SectionDTO
     {
 
-        $files = glob($directory . '/*.{md}', GLOB_BRACE);
+        $files = glob($directory.'/*.{md}', GLOB_BRACE);
         $section->lessons = LessonDTO::collection([]);
 
         foreach ($files as $file) {
@@ -93,7 +86,7 @@ class CourseService
 
             $section->lessons[] = LessonDTO::from(array_merge(
                 $lesson->matter(), [
-                    'body' => Markdown::convert($lesson->body())->getContent()
+                    'body' => Markdown::convert($lesson->body())->getContent(),
                 ]
             ));
         }
@@ -106,10 +99,8 @@ class CourseService
     {
 
         $courses = $this->getCourses();
+
         return $courses->where('slug', $slug)->first();
 
     }
-
-
 }
-

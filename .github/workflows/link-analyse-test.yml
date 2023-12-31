@@ -1,0 +1,41 @@
+# .github/workflows/link-analyse-test.yml
+name: Lint, Analyse and Test
+on:
+  pull_request:
+    paths:
+      - ".github/**"
+      - "src/**"
+    branches:
+      - main
+
+jobs:
+  Lint:
+    name: Lint ${{ matrix.php-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ["8.1", "8.2"]
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - uses: actions/checkout@v3
+        name: Checkout branch
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: laravel/pint, overtrue/phplint
+
+      - name: Outupt PHP version
+        run: php --version
+
+      - name: Check PHP syntax
+        run: phplint --exclude=*.log .
+        working-directory: src
+
+      - name: Run Laravel Pint
+        run: pint --test
+        working-directory: src
+
+

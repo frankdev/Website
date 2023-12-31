@@ -11,15 +11,15 @@ use Illuminate\View\View;
 
 final class IndexController extends Controller
 {
-
     public function __construct(
         private CourseService $courseService
-    ) {}
+    ) {
+    }
 
     public function __invoke(Request $request): View
     {
         return view('courses.index', [
-            'courses' => $this->courseService->getCourses()
+            'courses' => $this->courseService->getCourses(),
         ]);
 
     }

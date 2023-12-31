@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 final class ShowController extends Controller
 {
-
     public function __construct(
         private readonly CourseService $courseService
-    ) {}
+    ) {
+    }
 
     public function __invoke(Request $request, string $slug): View
     {
         return view('courses.show', [
             'course' => $this->courseService->getCourse(
                 slug: $slug
-            )
+            ),
         ]);
 
     }
