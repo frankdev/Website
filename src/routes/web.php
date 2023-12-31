@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\Articles\ShowController;
+use App\Http\Controllers\Courses\{
+    IndexController as CourseIndexController,
+    ShowController as CourseShowController,
+    WatchController as CourseWatchController
+};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +31,19 @@ Route::view('profile', 'profile')
 
 
 Route::prefix('articles')->group(function () {
-    Route::get('{slug}', ShowController::class)->name('articles.show');
+    Route::get('{slug}', ShowController::class)
+        ->name('articles.show');
 });
+
+Route::prefix('courses')->group(function () {
+    Route::get('/', CourseIndexController::class)
+        ->name('courses.index');
+    Route::get('/{slug}', CourseShowController::class)
+        ->name('courses.show');
+    Route::get('/watch/{course}/{lesson}', CourseWatchController::class)
+        ->name('courses.watch');
+});
+
+
 
 require __DIR__ . '/auth.php';
