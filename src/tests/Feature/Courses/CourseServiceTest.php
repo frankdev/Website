@@ -5,7 +5,7 @@ test('that getCourses returns a list of courses', function () {
     /** @var \App\Services\CourseService $courseService */
     $courseService = app()->make(\App\Services\CourseService::class);
 
-    expect($courseService->getCourses())
+    expect($courseService->getCourses()->items)
         ->toBeInstanceOf(
             class: \Spatie\LaravelData\DataCollection::class
         );

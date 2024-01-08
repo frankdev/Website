@@ -7,6 +7,12 @@ on:
       - "src/**"
     branches:
       - main
+  push:
+    paths:
+      - ".github/**"
+      - "src/**"
+    branches:
+      - main
 
 jobs:
   Lint:
@@ -38,4 +44,77 @@ jobs:
         run: pint --test
         working-directory: src
 
+  Test:
+    name: Run tests ${{ matrix.php-version }}
+    runs-on: ubuntu-latest
+    needs:
+      - Lint
+    strategy:
+      matrix:
+        php-version: [ "8.1", "8.2" ]
 
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+
+      - uses: actions/checkout@v3
+        name: Checkout branch
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: laravel/pint, overtrue/phplint
+
+      - name: Outupt PHP version
+        run: php --version
+
+      - name: Check PHP syntax
+        run: phplint --exclude=*.log .
+        working-directory: src
+
+      - name: Run Laravel Pint
+        run: pint --test
+        working-directory: src
+
+      - name: Install composer
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+        run: composer install --optimize-autoloader --no-progress --no-interaction --ignore-platform-req=php
+        working-directory: src
+
+      - name: Run PHPstan
+        run: ./vendor/bin/phpstan analyse
+        working-directory: src
+
+      - name: Setup environment variables
+        run: |
+          cp .env.ci .env
+          cp .env.ci .env.testing
+        working-directory: src
+
+      - name: Install NPM Packages
+        run: |
+          npm install
+          npm run build
+        working-directory: src
+
+      - name: Run tests
+        run: ./vendor/bin/pest
+        working-directory: src

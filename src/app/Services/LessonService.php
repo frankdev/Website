@@ -13,7 +13,7 @@ final class LessonService
     }
 
     /**
-     * @return array{CourseDTO, LessonDTO}
+     * @return array{CourseDTO|null, LessonDTO|null}
      */
     public function getLesson(string $courseSlug, string $lessonSlug): array
     {

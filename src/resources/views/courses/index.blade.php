@@ -32,7 +32,7 @@
         </div>
 
         <ul class="container mx-auto grid md:grid-cols-3">
-            @foreach($courses as $course)
+            @foreach($courses->items as $course)
                 <li class="dark:bg-gray-800 px-8 md:px-10 py-6 md:py-8 rounded-xl">
                     <h2 class="text-lg dark:text-gray-200 font-black">
                         {{ $course->title }}
