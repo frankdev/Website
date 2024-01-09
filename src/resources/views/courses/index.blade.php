@@ -22,9 +22,17 @@
     </section>
 
 
-    <div class="bg-indigo-700 my-4" style="height: 1px">
+    <div class="flex">
+        <div class="bg-gradient-to-r from-transparent to-indigo-700 to-25% my-4  w-6/12" style="height: 1px">
+
+        </div>
+
+        <div class="bg-gradient-to-l from-transparent to-indigo-700 to-25% my-4  w-6/12" style="height: 1px">
+
+        </div>
 
     </div>
+
 
     <main class="py-16 dark:text-gray-200">
         <div class="container mx-auto mb-4">
