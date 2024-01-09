@@ -8,7 +8,7 @@ if [! -f  ".env"]; then
   echo "Creating env file for env $APP_ENV"
   cp .env.example .env
 else
-  echo "enf file exists."
+  echo "env file exists."
 fi
 
 php artisan migrate
